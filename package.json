@@ -1,0 +1,9 @@
+{
+	"name": "robotslowdance",
+	"version": "0.0.0",
+	"description": "Robot Slow Dance",
+	"main": "app.js",
+	"dependencies": {
+		"johnny-five": "latest"
+	}
+}
