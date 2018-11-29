@@ -1,9 +1,10 @@
 {
-	"name": "robotslowdance",
-	"version": "0.0.0",
-	"description": "Robot Slow Dance",
-	"main": "app.js",
-	"dependencies": {
-		"johnny-five": "latest"
-	}
+  "name": "robotslowdance",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/squinky/robotslowdance",
+  "license": "MIT",
+  "dependencies": {
+    "johnny-five": "^1.0.0"
+  }
 }
