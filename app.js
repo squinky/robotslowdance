@@ -58,14 +58,5 @@ board.on("ready", function()
 		if (p2.input.left) p2.servos.top.max();
 		else if (p2.input.right) p2.servos.top.min();
 		else p2.servos.top.home();
-
-		var oldScore = score;
-
-		if (p1.input.up && p2.input.up) score++;
-		else if (p1.input.down && p2.input.down) score++;
-		else if (p1.input.left && p2.input.left) score++;
-		else if (p1.input.right && p2.input.right) score++;
-
-		if (score > oldScore) console.log("Score: "+score);
 	});
 });
