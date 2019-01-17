@@ -18,10 +18,10 @@ var timeToDance = false;
 
 board.on("ready", function()
 {
-	start.led = new five.Led("A0");
+	start.led = new five.Led(14);
 	start.led.blink(500);
 
-	this.pinMode("A1", five.Pin.INPUT);
+	this.pinMode(15, five.Pin.INPUT);
 
 	this.pinMode(2, five.Pin.INPUT);
 	this.pinMode(3, five.Pin.INPUT);
@@ -33,7 +33,7 @@ board.on("ready", function()
 	this.pinMode(10, five.Pin.INPUT);
 	this.pinMode(11, five.Pin.INPUT);
 
-	this.digitalRead("A1", function(value) { start.button = !value });
+	this.digitalRead(15, function(value) { start.button = !value });
 
 	this.digitalRead(2, function(value) { p1.input.up = !value });
 	this.digitalRead(3, function(value) { p1.input.down = !value });
