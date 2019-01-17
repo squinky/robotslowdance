@@ -12,10 +12,13 @@ var p2 =
 	servos: {}
 };
 
-var score = 0;
+var led;
 
 board.on("ready", function()
 {
+	led = new five.Led(0);
+	led.blink(500);
+
 	this.pinMode(2, five.Pin.INPUT);
 	this.pinMode(3, five.Pin.INPUT);
 	this.pinMode(4, five.Pin.INPUT);
