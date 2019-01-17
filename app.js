@@ -12,12 +12,16 @@ var p2 =
 	servos: {}
 };
 
-var led;
+var start = { button: false, led: null };
+
+var timeToDance = false;
 
 board.on("ready", function()
 {
-	led = new five.Led("A0");
-	led.blink(500);
+	start.led = new five.Led("A0");
+	start.led.blink(500);
+
+	this.pinMode("A1", five.Pin.INPUT);
 
 	this.pinMode(2, five.Pin.INPUT);
 	this.pinMode(3, five.Pin.INPUT);
@@ -28,6 +32,8 @@ board.on("ready", function()
 	this.pinMode(9, five.Pin.INPUT);
 	this.pinMode(10, five.Pin.INPUT);
 	this.pinMode(11, five.Pin.INPUT);
+
+	this.digitalRead("A1", function(value) { start.button = !value });
 
 	this.digitalRead(2, function(value) { p1.input.up = !value });
 	this.digitalRead(3, function(value) { p1.input.down = !value });
@@ -46,20 +52,32 @@ board.on("ready", function()
 
 	this.loop(1, () =>
 	{
-		if (p1.input.up) p1.servos.bottom.max();
-		else if (p1.input.down) p1.servos.bottom.min();
-		else p1.servos.bottom.home();
+		if (timeToDance)
+		{
+			if (p1.input.up) p1.servos.bottom.max();
+			else if (p1.input.down) p1.servos.bottom.min();
+			else p1.servos.bottom.home();
 
-		if (p1.input.left) p1.servos.top.max();
-		else if (p1.input.right) p1.servos.top.min();
-		else p1.servos.top.home();
+			if (p1.input.left) p1.servos.top.max();
+			else if (p1.input.right) p1.servos.top.min();
+			else p1.servos.top.home();
 
-		if (p2.input.up) p2.servos.bottom.min();
-		else if (p2.input.down) p2.servos.bottom.max();
-		else p2.servos.bottom.home();
+			if (p2.input.up) p2.servos.bottom.min();
+			else if (p2.input.down) p2.servos.bottom.max();
+			else p2.servos.bottom.home();
 
-		if (p2.input.left) p2.servos.top.max();
-		else if (p2.input.right) p2.servos.top.min();
-		else p2.servos.top.home();
+			if (p2.input.left) p2.servos.top.max();
+			else if (p2.input.right) p2.servos.top.min();
+			else p2.servos.top.home();
+		}
+		else
+		{
+			console.log(start.button);
+			if (start.button)
+			{
+				start.led.stop().off();
+				timeToDance = true;
+			}
+		}
 	});
 });
