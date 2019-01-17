@@ -16,7 +16,7 @@ var led;
 
 board.on("ready", function()
 {
-	led = new five.Led(0);
+	led = new five.Led("A0");
 	led.blink(500);
 
 	this.pinMode(2, five.Pin.INPUT);
