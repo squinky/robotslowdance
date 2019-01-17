@@ -72,7 +72,6 @@ board.on("ready", function()
 		}
 		else
 		{
-			console.log(start.button);
 			if (start.button)
 			{
 				start.led.stop().off();
