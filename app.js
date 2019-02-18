@@ -1,4 +1,7 @@
-var five = require("johnny-five"), board = new five.Board();
+var five = require("johnny-five");
+var board = new five.Board();
+
+var grammar = require('./grammar.js');
 
 var p1 =
 {
