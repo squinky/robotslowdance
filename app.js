@@ -72,6 +72,22 @@ board.on("ready", function()
 			if (p2.input.left) p2.servos.top.max();
 			else if (p2.input.right) p2.servos.top.min();
 			else p2.servos.top.home();
+
+			// in sync?
+			// p1/p2 moving
+			// p1/p2 changed direction?
+			// p1/p2 last direction
+
+			// after 1000 loops (1 second)
+			// has p1/p2 moved?
+			// # in sync
+			// # of times p1/p2 changed direction
+			// reset ms vars
+
+			// after the last robot has spoken
+			// choose which robot speaks
+			// choose which things the robot can say
+			// reset second vars
 		}
 		else
 		{
@@ -79,6 +95,9 @@ board.on("ready", function()
 			{
 				start.led.stop().off();
 				timeToDance = true;
+
+				// choose which robot speaks
+				// start with a greeting
 			}
 		}
 	});
