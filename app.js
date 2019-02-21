@@ -6,6 +6,8 @@ var grammar = require('./grammar.js');
 var player = require('play-sound')(opts = {});
 var bgm;
 
+var say = require('say');
+
 var p1 =
 {
 	input: { up: false, down: false, left: false, right: false },
@@ -99,6 +101,8 @@ board.on("ready", function()
 				start.led.stop().off();
 
 				bgm = player.play('bgm.mp3', function(err){ if (err) throw err });
+
+				say.speak("Hello, I am a dancing robot.");
 
 				// choose which robot speaks
 				// start with a greeting

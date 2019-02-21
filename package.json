@@ -6,6 +6,7 @@
   "license": "MIT",
   "dependencies": {
     "johnny-five": "^1.0.0",
-    "play-sound": "latest"
+    "play-sound": "latest",
+    "say": "latest"
   }
 }
