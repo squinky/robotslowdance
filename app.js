@@ -146,7 +146,7 @@ board.on("ready", function()
 				else if (movingInSync/timeSinceLastSpoken >= 0.8)
 				{
 					console.log("The robots are moving in sync. Ooh la la!");
-					talk(currentSpeaker, grammar.flatten('#movingInSync#'));
+					talk(currentSpeaker, grammar.flatten('#moveInSync#'));
 				}
 				else
 				{
@@ -250,5 +250,5 @@ function pickNextSpeaker()
 
 function isDancingFast(robot)
 {
-	return (robot.changedDirection/timeSinceLastSpoken >= 0.5);
+	return (robot.changedDirection/timeSinceLastSpoken >= 0.1);
 }
