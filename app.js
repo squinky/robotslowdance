@@ -123,8 +123,8 @@ function talk(player, text)
 	console.log("Speaking...");
 
 	var voice;
-	if (player == p1) voice = "kal_diphone";
-	else voice = "rab_diphone";
+	if (player == p1) voice = "voice_kal_diphone";
+	else voice = "voice_rab_diphone";
 
 	say.speak(text, voice, undefined, (error) =>
 	{
