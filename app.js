@@ -3,6 +3,8 @@ var board = new five.Board();
 
 var grammar = require('./grammar.js');
 
+var play = require('play').Play();
+
 var p1 =
 {
 	input: { up: false, down: false, left: false, right: false },
@@ -92,12 +94,15 @@ board.on("ready", function()
 		else
 		{
 			if (start.button)
-			{
+			{	
 				start.led.stop().off();
-				timeToDance = true;
+
+				play.sound('./bgm.mp3');
 
 				// choose which robot speaks
 				// start with a greeting
+
+				timeToDance = true;
 			}
 		}
 	});
