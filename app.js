@@ -3,7 +3,8 @@ var board = new five.Board();
 
 var grammar = require('./grammar.js');
 
-var player = require('play-sound')(opts = {})
+var player = require('play-sound')(opts = {});
+var bgm;
 
 var p1 =
 {
@@ -97,7 +98,7 @@ board.on("ready", function()
 			{	
 				start.led.stop().off();
 
-				player.play('bgm.mp3', function(err){ if (err) throw err });
+				bgm = player.play('bgm.mp3', function(err){ if (err) throw err });
 
 				// choose which robot speaks
 				// start with a greeting
@@ -106,4 +107,9 @@ board.on("ready", function()
 			}
 		}
 	});
+});
+
+board.on("exit", function()
+{
+	if (bgm) bgm.kill();
 });
