@@ -99,12 +99,12 @@ board.on("ready", function()
 
 				if (p1.input.up || p1.input.down || p1.input.left || p1.input.right) p1.moving++;
 				if (p2.input.up || p2.input.down || p2.input.left || p2.input.right) p2.moving++;
-				if (p1.lastInput != p1.input) p1.changedDirection++;
-				if (p2.lastInput != p2.input) p2.changedDirection++;
-				if (p1.input == p2.input) movingInSync++;
+				if (JSON.stringify(p1.lastInput) != JSON.stringify(p1.input)) p1.changedDirection++;
+				if (JSON.stringify(p2.lastInput) != JSON.stringify(p2.input)) p2.changedDirection++;
+				if (JSON.stringify(p1.input) == JSON.stringify(p2.input)) movingInSync++;
 
-				p1.lastInput = p1.input;
-				p2.lastInput = p2.input;
+				p1.lastInput = JSON.parse(JSON.stringify(p1.input));
+				p2.lastInput = JSON.parse(JSON.stringify(p2.input));
 			}
 			else
 			{
@@ -119,7 +119,20 @@ board.on("ready", function()
 				}
 				else if (!p1.moving || !p2.moving)
 				{
-					if (!currentSpeaker.moving)
+					if (isDancingFast(p1) || isDancingFast(p2))
+					{
+						if (isDancingFast(currentSpeaker))
+						{
+							console.log(currentSpeaker.name+" is dancing real fast, yikes!");
+							talk(currentSpeaker, grammar.flatten('#moveFast#'));
+						}
+						else
+						{
+							console.log(currentSpeaker.name+"'s partner is dancing real fast and "+currentSpeaker.name+" is concerned.");
+							talk(currentSpeaker, grammar.flatten('#moveFastResponse#'));
+						}
+					}
+					else if (!currentSpeaker.moving)
 					{
 						console.log(currentSpeaker.name+" is standing still while their partner is moving.");
 						talk(currentSpeaker, grammar.flatten('#standStill#'));
@@ -130,7 +143,7 @@ board.on("ready", function()
 						talk(currentSpeaker, grammar.flatten('#moveAlone#'));
 					}
 				}
-				else if (movingInSync/timeSinceLastSpoken >= 0.5)
+				else if (movingInSync/timeSinceLastSpoken >= 0.8)
 				{
 					console.log("The robots are moving in sync. Ooh la la!");
 					talk(currentSpeaker, grammar.flatten('#movingInSync#'));
@@ -153,7 +166,7 @@ board.on("ready", function()
 					else
 					{
 						console.log("The robots are moving out of sync. Awk-ward!");
-						talk(currentSpeaker, grammar.flatten('#movingOutOfSync#'));
+						talk(currentSpeaker, grammar.flatten('#moveOutOfSync#'));
 					}
 				}
 
