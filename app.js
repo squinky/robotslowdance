@@ -102,7 +102,7 @@ board.on("ready", function()
 
 				bgm = player.play('bgm.mp3', function(err){ if (err) throw err });
 
-				talk("Hello, I am a dancing robot.");
+				talk(p2, "Hello, I am a dancing robot.");
 
 				// choose which robot speaks
 				// start with a greeting
@@ -118,9 +118,14 @@ board.on("exit", function()
 	if (bgm) bgm.kill();
 });
 
-function talk(text)
+function talk(player, text)
 {
-	console.log("Speaking...")
+	console.log("Speaking...");
+
+	var voice;
+	if (player == p1) voice = "kal_diphone";
+	else voice = "rab_diphone";
+
 	say.speak(text, undefined, undefined, (error) =>
 	{
 		if (error) return console.error(error);
