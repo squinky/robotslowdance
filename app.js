@@ -1,12 +1,17 @@
 var five = require("johnny-five");
 var board = new five.Board();
 
-var grammar = require('./grammar.js');
+var tracery = require('tracery-grammar');
+var text = require('./grammar.js');
+var grammar = tracery.createGrammar(text.get());
+grammar.addModifiers(tracery.baseEngModifiers); 
 
 var player = require('play-sound')(opts = {});
 var bgm;
 
 var say = require('say');
+var currentSpeaker;
+var talking = false;
 
 var p1 =
 {
@@ -102,10 +107,8 @@ board.on("ready", function()
 
 				bgm = player.play('bgm.mp3', function(err){ if (err) throw err });
 
-				talk(p2, "Hello, I am a dancing robot.");
-
-				// choose which robot speaks
-				// start with a greeting
+				pickNextSpeaker();
+				talk(currentSpeaker, grammar.flatten('#greeting#'));
 
 				timeToDance = true;
 			}
@@ -120,7 +123,7 @@ board.on("exit", function()
 
 function talk(player, text)
 {
-	console.log("Speaking...");
+	talking = true;
 
 	var voice;
 	if (player == p1) voice = "voice_kal_diphone";
@@ -129,6 +132,22 @@ function talk(player, text)
 	say.speak(text, voice, undefined, (error) =>
 	{
 		if (error) return console.error(error);
-		console.log('Stopped speaking.');
+		talking = false;
 	});
+}
+
+function pickNextSpeaker()
+{
+	if (!currentSpeaker)
+	{
+		currentSpeaker = Math.random() < 0.5 ? p1 : p2;
+	}
+	else if (currentSpeaker == p1)
+	{
+		currentSpeaker = Math.random() < 0.8 ? p2 : p1;
+	}
+	else if (currentSpeaker == p2)
+	{
+		currentSpeaker = Math.random() < 0.8 ? p1 : p2;
+	}
 }
