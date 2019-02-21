@@ -4,6 +4,7 @@ var board = new five.Board();
 var grammar = require('./grammar.js');
 
 var play = require('play');
+play.usePlayer('mpg123');
 
 var p1 =
 {
