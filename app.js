@@ -3,9 +3,7 @@ var board = new five.Board();
 
 var grammar = require('./grammar.js');
 
-var play = require('play');
-play.Play();
-play.usePlayer('mpg123');
+var player = require('play-sound')(opts = {})
 
 var p1 =
 {
@@ -99,7 +97,7 @@ board.on("ready", function()
 			{	
 				start.led.stop().off();
 
-				play.sound('./bgm.mp3');
+				player.play('bgm.mp3', function(err){ if (err) throw err });
 
 				// choose which robot speaks
 				// start with a greeting
