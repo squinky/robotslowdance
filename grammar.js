@@ -15,6 +15,7 @@ var grammar =
 
 	"bothStandStill":
 	[
+		"#standStill#",
 		"Are we going to dance or aren't we?",
 		"Well, this is awkward."
 	],
@@ -32,16 +33,24 @@ var grammar =
 		"Clearly, my #bodyPart# can #move# #better# than yours."
 	],
 
-	"moveRealFast":
+	"moveFast":
 	[
 		"#move.capitalize#! #move.capitalize#! #move.capitalize#!",
-		"#bodyPart.capitalize#! #bodyPart.capitalize#! #bodyPart.capitalize#!"
+		"#bodyPart.capitalize#! #bodyPart.capitalize#! #bodyPart.capitalize#!",
+		"Look how #good# at dancing I am!"
+	],
+
+	"moveFastResponse":
+	[
+		"You okay there, #friend#?",
+		"Careful not to #damage# your #bodyPart#!"
 	],
 
 	"moveInSync":
 	[
 		"Wow, you're #very# #good# at this!",
-		"I #love# the way you #move# that #bodyPart#."
+		"I #love# the way you #move# that #bodyPart#.",
+		"Your #bodyPart# is #very# #good#."
 	],
 
 	"moveOutOfSync":
@@ -60,11 +69,13 @@ var grammar =
 		"more precisely"
 	],
 
-	"good" : "amazing competent efficient good great impressive precise".split(" "),
-	"very" : "impressively incredibly quite really super very".split(" "),
+	"good" : "amazing competent efficient good great impressive precise superlative".split(" "),
+	"very" : "impressively incredibly quite really superlatively very".split(" "),
 	"love" : "appreciate enjoy like love".split(" "),
 	"move" : "drive jiggle move pan power rotate shake tilt twist vibrate".split(" "),
 	"ouch" : "ack eep oof ouch ow yowch yow".split(" "),
+	"damage" : "damage destroy electrocute fry short-circuit".split(" "),
+	"friend" : "buddy comrade duder friend pal".split(" "),
 	"bodyPart" : "assembly chassis hinge microcontroller motherboard piston processor rotor sensor servo sprocket".split(" ")
 
 	// both robots stand completely still

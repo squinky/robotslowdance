@@ -15,19 +15,29 @@ var talking = false;
 
 var p1 =
 {
+	name: "Player 1",
 	input: { up: false, down: false, left: false, right: false },
-	servos: {}
+	lastInput: { up: false, down: false, left: false, right: false },
+	servos: {},
+	moving: 0,
+	changedDirection: 0
 };
 
 var p2 =
 {
+	name: "Player 2",
 	input: { up: false, down: false, left: false, right: false },
-	servos: {}
+	lastInput: { up: false, down: false, left: false, right: false },
+	servos: {},
+	moving: 0,
+	changedDirection: 0
 };
 
 var start = { button: false, led: null };
 
 var timeToDance = false;
+var timeSinceLastSpoken = 0;
+var movingInSync = 0;
 
 board.on("ready", function()
 {
@@ -83,21 +93,73 @@ board.on("ready", function()
 			else if (p2.input.right) p2.servos.top.min();
 			else p2.servos.top.home();
 
-			// in sync?
-			// p1/p2 moving
-			// p1/p2 changed direction?
-			// p1/p2 last direction
+			if (talking)
+			{
+				timeSinceLastSpoken++;
+				if (p1.input.up || p1.input.down || p1.input.left || p1.input.right) p1.moving++;
+				if (p2.input.up || p2.input.down || p2.input.left || p2.input.right) p2.moving++;
+				if (p1.lastInput != p1.input) p1.changedDirection++;
+				if (p2.lastInput != p2.input) p2.changedDirection++;
+				if (p1.input == p2.input) movingInSync++;
+			}
+			else
+			{
+				console.log(timeSinceLastSpoken, movingInSync, p1.moving, p2.moving, p1.changedDirection, p2.changedDirection);
 
-			// after 1000 loops (1 second)
-			// has p1/p2 moved?
-			// # in sync
-			// # of times p1/p2 changed direction
-			// reset ms vars
+				pickNextSpeaker();
 
-			// after the last robot has spoken
-			// choose which robot speaks
-			// choose which things the robot can say
-			// reset second vars
+				if (!p1.moving && !p2.moving)
+				{
+					console.log("Neither robot is moving. Awk-ward!");
+					talk(currentSpeaker, grammar.flatten('#bothStandStill#'));
+				}
+				else if (!p1.moving || !p2.moving)
+				{
+					if (!currentSpeaker.moving)
+					{
+						console.log(currentSpeaker.name+" is standing still while their partner is moving.");
+						talk(currentSpeaker, grammar.flatten('#standStill#'));
+					}
+					else
+					{
+						console.log(currentSpeaker.name+" is moving while their partner is standing still.");
+						talk(currentSpeaker, grammar.flatten('#moveAlone#'));
+					}
+				}
+				else if (movingInSync/timeSinceLastSpoken >= 0.8)
+				{
+					console.log("The robots are moving in sync. Ooh la la!");
+					talk(currentSpeaker, grammar.flatten('#movingInSync#'));
+				}
+				else
+				{
+					if (isDancingFast(p1) || isDancingFast(p2))
+					{
+						if (isDancingFast(currentSpeaker))
+						{
+							console.log(currentSpeaker.name+" is dancing real fast, yikes!");
+							talk(currentSpeaker, grammar.flatten('#moveFast#'));
+						}
+						else
+						{
+							console.log(currentSpeaker.name+"'s partner is dancing real fast and "+currentSpeaker.name+" is concerned.");
+							talk(currentSpeaker, grammar.flatten('#moveFastResponse#'));
+						}
+					}
+					else
+					{
+						console.log("The robots are moving out of sync. Awk-ward!");
+						talk(currentSpeaker, grammar.flatten('#movingOutOfSync#'));
+					}
+				}
+
+				timeSinceLastSpoken = 0;
+				movingInSync = 0;
+				p1.moving = 0;
+				p2.moving = 0;
+				p1.changedDirection = 0;
+				p2.changedDirection = 0;
+			}
 		}
 		else
 		{
@@ -105,7 +167,11 @@ board.on("ready", function()
 			{	
 				start.led.stop().off();
 
-				bgm = player.play('bgm.mp3', function(err){ if (err) throw err });
+				bgm = player.play('bgm.mp3', function(err)
+				{
+					if (err) throw err;
+					console.log("BGM callback function gets called here.");
+				});
 
 				pickNextSpeaker();
 				talk(currentSpeaker, grammar.flatten('#greeting#'));
@@ -121,12 +187,14 @@ board.on("exit", function()
 	if (bgm) bgm.kill();
 });
 
-function talk(player, text)
+function talk(speaker, text)
 {
+	console.log(speaker.name, text);
+
 	talking = true;
 
 	var voice;
-	if (player == p1) voice = "voice_kal_diphone";
+	if (speaker == p1) voice = "voice_kal_diphone";
 	else voice = "voice_ked_diphone";
 
 	say.speak(text, voice, undefined, (error) =>
@@ -150,4 +218,9 @@ function pickNextSpeaker()
 	{
 		currentSpeaker = Math.random() < 0.8 ? p1 : p2;
 	}
+}
+
+function isDancingFast(robot)
+{
+	return (robot.changedDirection/timeSinceLastSpoken >= 0.5);
 }
