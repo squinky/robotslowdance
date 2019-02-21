@@ -3,7 +3,7 @@ var board = new five.Board();
 
 var grammar = require('./grammar.js');
 
-var play = require('play').Play();
+var play = require('play');
 
 var p1 =
 {
