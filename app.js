@@ -96,11 +96,15 @@ board.on("ready", function()
 			if (talking)
 			{
 				timeSinceLastSpoken++;
+
 				if (p1.input.up || p1.input.down || p1.input.left || p1.input.right) p1.moving++;
 				if (p2.input.up || p2.input.down || p2.input.left || p2.input.right) p2.moving++;
 				if (p1.lastInput != p1.input) p1.changedDirection++;
 				if (p2.lastInput != p2.input) p2.changedDirection++;
 				if (p1.input == p2.input) movingInSync++;
+
+				p1.lastInput = p1.input;
+				p2.lastInput = p2.input;
 			}
 			else
 			{
@@ -126,7 +130,7 @@ board.on("ready", function()
 						talk(currentSpeaker, grammar.flatten('#moveAlone#'));
 					}
 				}
-				else if (movingInSync/timeSinceLastSpoken >= 0.8)
+				else if (movingInSync/timeSinceLastSpoken >= 0.5)
 				{
 					console.log("The robots are moving in sync. Ooh la la!");
 					talk(currentSpeaker, grammar.flatten('#movingInSync#'));
@@ -170,7 +174,18 @@ board.on("ready", function()
 				bgm = player.play('bgm.mp3', function(err)
 				{
 					if (err) throw err;
-					console.log("BGM callback function gets called here.");
+
+					p1.servos.bottom.home();
+					p1.servos.top.home();
+					p2.servos.bottom.home();
+					p2.servos.top.home();
+					timeSinceLastSpoken = 0;
+					movingInSync = 0;
+					p1.moving = 0;
+					p2.moving = 0;
+					p1.changedDirection = 0;
+					p2.changedDirection = 0;
+					timeToDance = false;
 				});
 
 				pickNextSpeaker();
