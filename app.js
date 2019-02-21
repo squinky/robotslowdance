@@ -124,7 +124,7 @@ function talk(player, text)
 
 	var voice;
 	if (player == p1) voice = "voice_kal_diphone";
-	else voice = "voice_rab_diphone";
+	else voice = "voice_ked_diphone";
 
 	say.speak(text, voice, undefined, (error) =>
 	{
