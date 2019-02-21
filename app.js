@@ -126,7 +126,7 @@ function talk(player, text)
 	if (player == p1) voice = "kal_diphone";
 	else voice = "rab_diphone";
 
-	say.speak(text, undefined, undefined, (error) =>
+	say.speak(text, voice, undefined, (error) =>
 	{
 		if (error) return console.error(error);
 		console.log('Stopped speaking.');
