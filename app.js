@@ -108,8 +108,6 @@ board.on("ready", function()
 			}
 			else
 			{
-				console.log(timeSinceLastSpoken, movingInSync, p1.moving, p2.moving, p1.changedDirection, p2.changedDirection);
-
 				pickNextSpeaker();
 
 				if (!p1.moving && !p2.moving)
@@ -216,6 +214,11 @@ board.on("ready", function()
 board.on("exit", function()
 {
 	if (bgm) bgm.kill();
+	p1.servos.bottom.home();
+	p1.servos.top.home();
+	p2.servos.bottom.home();
+	p2.servos.top.home();
+	start.led.stop().off();
 });
 
 function talk(speaker, text)
