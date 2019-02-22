@@ -165,8 +165,8 @@ board.on("ready", function()
 					}
 					else
 					{
-						console.log("The robots are moving out of sync. Awk-ward!");
-						talk(currentSpeaker, grammar.flatten('#moveOutOfSync#'));
+						console.log("The robots are dancing and not doing anything special.");
+						talk(currentSpeaker, grammar.flatten('#justDancing#'));
 					}
 				}
 
@@ -192,6 +192,9 @@ board.on("ready", function()
 					p1.servos.top.home();
 					p2.servos.bottom.home();
 					p2.servos.top.home();
+
+					start.led.blink(500);
+
 					timeSinceLastSpoken = 0;
 					movingInSync = 0;
 					p1.moving = 0;
@@ -250,5 +253,5 @@ function pickNextSpeaker()
 
 function isDancingFast(robot)
 {
-	return (robot.changedDirection/timeSinceLastSpoken >= 0.1);
+	return (robot.changedDirection/timeSinceLastSpoken >= 0.01);
 }

@@ -53,12 +53,10 @@ var grammar =
 		"Your #bodyPart# is #very# #good#."
 	],
 
-	"moveOutOfSync":
+	"justDancing":
 	[
-		"#ouch.capitalize#, my #bodyPart#!",
 		"I have no idea what I'm doing right now.",
-		"So, uh, do you like, umm, stuff?",
-		"Nice #bodyPart#."
+		"So, uh, do you like, umm, stuff?"
 	],
 
 	"better":
@@ -73,16 +71,9 @@ var grammar =
 	"very" : "impressively incredibly quite really superlatively very".split(" "),
 	"love" : "appreciate enjoy like love".split(" "),
 	"move" : "drive jiggle move pan power rotate shake tilt twist vibrate".split(" "),
-	"ouch" : "ack eep oof ouch ow yowch yow".split(" "),
 	"damage" : "damage destroy electrocute fry short-circuit".split(" "),
 	"friend" : "buddy comrade duder friend pal".split(" "),
 	"bodyPart" : "assembly chassis hinge microcontroller motherboard piston processor rotor sensor servo sprocket".split(" ")
-
-	// both robots stand completely still
-	// one robot moves, the other stands still
-	// robots move out of sync
-	// robots move in sync
-	// moving fast/slow
 };
 
 exports.get = function()
