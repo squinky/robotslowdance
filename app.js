@@ -182,8 +182,6 @@ board.on("ready", function()
 				if (startButtonHeld >= 3000)
 				{
 					bgm.kill();
-					talking = false;
-					endGame();
 				}
 				else
 				{
@@ -204,7 +202,6 @@ board.on("ready", function()
 				bgm = player.play('bgm.mp3', function(err)
 				{
 					if (err) throw err;
-
 					endGame();
 				});
 
