@@ -85,7 +85,7 @@ var grammar =
 		"I think I #need# a nap.",
 		"I #need# a #refreshment#.",
 		"I #love# this #party#!",
-		"What #interesting.a# #party#!"
+		"What #interesting.a# #party#!",
 		"I've been thinking a lot about #conversationTopic# lately.",
 		"What are your opinions on #conversationTopic#?",
 		"Let me tell you all about #conversationTopic#.",
