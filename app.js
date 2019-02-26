@@ -34,6 +34,7 @@ var p2 =
 };
 
 var start = { button: false, led: null };
+var startButtonHeld = 0;
 
 var timeToDance = false;
 var timeSinceLastSpoken = 0;
@@ -175,6 +176,20 @@ board.on("ready", function()
 				p1.changedDirection = 0;
 				p2.changedDirection = 0;
 			}
+
+			if (start.button)
+			{
+				if (startButtonHeld >= 3000)
+				{
+					bgm.kill();
+					endGame();
+				}
+				startButtonHeld++;
+			}
+			else
+			{
+				if (startButtonHeld) startButtonHeld = 0;
+			}
 		}
 		else
 		{
@@ -186,20 +201,7 @@ board.on("ready", function()
 				{
 					if (err) throw err;
 
-					p1.servos.bottom.home();
-					p1.servos.top.home();
-					p2.servos.bottom.home();
-					p2.servos.top.home();
-
-					start.led.blink(500);
-
-					timeSinceLastSpoken = 0;
-					movingInSync = 0;
-					p1.moving = 0;
-					p2.moving = 0;
-					p1.changedDirection = 0;
-					p2.changedDirection = 0;
-					timeToDance = false;
+					endGame();
 				});
 
 				pickNextSpeaker();
@@ -257,4 +259,22 @@ function pickNextSpeaker()
 function isDancingFast(robot)
 {
 	return (robot.changedDirection/timeSinceLastSpoken >= 0.01);
+}
+
+function endGame()
+{
+	p1.servos.bottom.home();
+	p1.servos.top.home();
+	p2.servos.bottom.home();
+	p2.servos.top.home();
+
+	start.led.blink(500);
+
+	timeSinceLastSpoken = 0;
+	movingInSync = 0;
+	p1.moving = 0;
+	p2.moving = 0;
+	p1.changedDirection = 0;
+	p2.changedDirection = 0;
+	timeToDance = false;
 }
