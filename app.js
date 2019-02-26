@@ -228,8 +228,8 @@ function talk(speaker, text)
 	talking = true;
 
 	var voice;
-	if (speaker == p1) voice = "voice_kal_diphone";
-	else voice = "voice_ked_diphone";
+	if (speaker == p1) voice = "voice_us1_mbrola";
+	else voice = "voice_us2_mbrola";
 
 	say.speak(text, voice, undefined, (error) =>
 	{
