@@ -34,8 +34,9 @@ var grammar =
 	[
 		"Oh yeah, you #love# that, don't you?",
 		"Clearly, my #bodyPart# can #move# #better# than yours.",
-		"Do you #need# recharging?",
-		"Do you #need# assistance?"
+		"You look like you #need# assistance.",
+		"Did you just enter sleep mode?",
+		"Do you require power?"
 	],
 
 	"moveFast":
@@ -62,13 +63,15 @@ var grammar =
 		"I #love# the way you #move# that #bodyPart#.",
 		"Your #bodyPart# is #very# #good#.",
 		"Let's go back to my place and recharge.",
+		"Let's go back to my place and discuss #conversationTopic#.",
 		"I find you #very# #good#.",
 		"Your #dancing# is #very# #good#.",
 		"I would like to examine your #bodyPart# up close.",
-		"You are a #very# #interesting# robot.",
+		"You are #very.a# #interesting# robot.",
 		"If I told you you had #good.a# #bodyPart#, would you hold it against me?",
 		"Would you like to exchange serial numbers?",
-		"I could spend many processor cycles discussing #conversationTopic# with you."
+		"I could spend many processor cycles discussing #conversationTopic# with you.",
+		"I would love to continue talking about #conversationTopic# somewhere quieter."
 	],
 
 	"justDancing":
