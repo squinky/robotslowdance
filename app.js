@@ -182,11 +182,7 @@ board.on("ready", function()
 				if (startButtonHeld >= 3000)
 				{
 					bgm.kill();
-					say.stop((error) =>
-					{
-						if (error) return console.error(error);
-						talking = false;
-					});
+					talking = false;
 					endGame();
 				}
 				else
