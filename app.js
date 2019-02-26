@@ -182,9 +182,13 @@ board.on("ready", function()
 				if (startButtonHeld >= 3000)
 				{
 					bgm.kill();
+					say.stop();
 					endGame();
 				}
-				startButtonHeld++;
+				else
+				{
+					startButtonHeld++;
+				}
 			}
 			else
 			{
