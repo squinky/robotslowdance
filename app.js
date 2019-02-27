@@ -181,6 +181,7 @@ board.on("ready", function()
 			{
 				if (startButtonHeld >= 3000)
 				{
+					startButtonHeld = 0;
 					timeToDance = false;
 					bgm.kill();
 					endGame();
