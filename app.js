@@ -181,7 +181,9 @@ board.on("ready", function()
 			{
 				if (startButtonHeld >= 3000)
 				{
+					timeToDance = false;
 					bgm.kill();
+					endGame();
 				}
 				else
 				{
@@ -197,18 +199,18 @@ board.on("ready", function()
 		{
 			if (start.button)
 			{	
+				timeToDance = true;
 				start.led.stop().off();
 
 				bgm = player.play('bgm.mp3', function(err)
 				{
 					if (err) throw err;
+					timeToDance = false;
 					endGame();
 				});
 
 				pickNextSpeaker();
 				talk(currentSpeaker, grammar.flatten('#greeting#'));
-
-				timeToDance = true;
 			}
 		}
 	});
@@ -277,5 +279,4 @@ function endGame()
 	p2.moving = 0;
 	p1.changedDirection = 0;
 	p2.changedDirection = 0;
-	timeToDance = false;
 }
