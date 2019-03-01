@@ -69,9 +69,9 @@ board.on("ready", function()
 	this.digitalRead(10, function(value) { p2.input.left = !value });
 	this.digitalRead(11, function(value) { p2.input.right = !value });
 
-	p1.servos.bottom = new five.Servo({ pin: 6, range: [0, 180], startAt: 90 });
+	p1.servos.bottom = new five.Servo({ pin: 6, range: [60, 120], startAt: 90 });
 	p1.servos.top = new five.Servo({ pin: 7, range: [60, 120], startAt: 90 });
-	p2.servos.bottom = new five.Servo({ pin: 12, range: [0, 180], startAt: 90 });
+	p2.servos.bottom = new five.Servo({ pin: 12, range: [60, 120], startAt: 90 });
 	p2.servos.top = new five.Servo({ pin: 13, range: [60, 120], startAt: 90 });
 
 	this.loop(1, () =>
