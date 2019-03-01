@@ -181,7 +181,6 @@ board.on("ready", function()
 			{
 				if (startButtonHeld >= 3000)
 				{
-					timeToDance = false;
 					bgm.kill();
 					endGame();
 				}
@@ -207,7 +206,6 @@ board.on("ready", function()
 					bgm = player.play('bgm.mp3', function(err)
 					{
 						if (err) throw err;
-						timeToDance = false;
 						endGame();
 					});
 
@@ -286,4 +284,6 @@ function endGame()
 	p2.moving = 0;
 	p1.changedDirection = 0;
 	p2.changedDirection = 0;
+
+	timeToDance = false;
 }
