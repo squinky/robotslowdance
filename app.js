@@ -13,6 +13,8 @@ var say = require('say');
 var currentSpeaker;
 var talking = false;
 
+var exec = require('child_process').exec;
+
 var p1 =
 {
 	name: "Player 1",
@@ -200,17 +202,25 @@ board.on("ready", function()
 			{
 				if (!startButtonHeld)
 				{
-					timeToDance = true;
-					start.led.stop().off();
-
-					bgm = player.play('bgm.mp3', function(err)
+					// shut down by holding both joysticks in the up position + start button
+					if (p1.input.up && p2.input.up)
 					{
-						if (err) throw err;
-						endGame();
-					});
+						shutdown(function(output){ console.log(output); });
+					}
+					else
+					{
+						timeToDance = true;
+						start.led.stop().off();
 
-					pickNextSpeaker();
-					talk(currentSpeaker, grammar.flatten('#greeting#'));
+						bgm = player.play('bgm.mp3', function(err)
+						{
+							if (err) throw err;
+							endGame();
+						});
+
+						pickNextSpeaker();
+						talk(currentSpeaker, grammar.flatten('#greeting#'));
+					}
 				}
 			}
 			else
@@ -286,4 +296,9 @@ function endGame()
 	p2.changedDirection = 0;
 
 	timeToDance = false;
+}
+
+function shutdown(callback)
+{
+    exec('shutdown now', function(error, stdout, stderr){ callback(stdout); });
 }
