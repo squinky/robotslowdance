@@ -18,7 +18,10 @@ var grammar =
 		"#standStill#",
 		"Are we going to dance or aren't we?",
 		"Well, this is awkward.",
-		"Is anyone actually controlling these joysticks?"
+		"Is anyone actually controlling these joysticks?",
+		"Are we just going to stand here or what?",
+		"Can we start #dancing# already?",
+		"Why is no one #dancing# to this music?"
 	],
 
 	"standStill":
@@ -27,7 +30,10 @@ var grammar =
 		"I seem to have temporarily forgotten how to #move# my #bodyPart#.",
 		"I think I'm starting to fall asleep.",
 		"My battery appears to be low.",
-		"This is #boring#."
+		"This is #boring#.",
+		"I am way too #good# for this #party#.",
+		"#exclamation.capitalize#, I need a break from all this #dancing#.",
+		"My #bodyPart# seems to be inoperational."
 	],
 
 	"moveAlone":
@@ -36,7 +42,8 @@ var grammar =
 		"Clearly, my #bodyPart# can #move# #better# than yours.",
 		"You look like you #need# assistance.",
 		"Did you just enter sleep mode?",
-		"Do you require power?"
+		"Do you require power?",
+		"Can I help you, #friend#?"
 	],
 
 	"moveFast":
